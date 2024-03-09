@@ -2,8 +2,6 @@ package models;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -11,12 +9,12 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 
-
 public class Product {
-    private Long id;
-    private String nombre;
-    private double precio;
-    private LocalDateTime fecha_registro;
+    private int id_practicas;
+    private int id_empresas;
+    private int id_proyecto;
+    private int id_personas;
+    private int id_roles;
 
 
 }

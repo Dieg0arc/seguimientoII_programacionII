@@ -16,16 +16,11 @@ public class P_R_Impl implements Repository<Product>{
     }
     private Product createProduct(ResultSet resultSet) throws SQLException {
         Product product = new Product();
-        product.setId(resultSet.getLong("id"));
-        product.setNombre(resultSet.getString("nombre"));
-        product.setPrecio(resultSet.getDouble("precio"));
-
-        java.sql.Timestamp registerTimestamp = resultSet.getTimestamp("fecha_registro");
-        if (registerTimestamp != null) {
-            product.setFecha_registro(registerTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-        } else {
-            product.setFecha_registro(null);
-        }
+        product.setId_empresas(resultSet.getInt("id_empresa"));
+        product.setId_practicas(resultSet.getInt("id_practicas"));
+        product.setId_personas(resultSet.getInt("id_personas"));
+        product.setId_proyecto(resultSet.getInt("id_proyecto"));
+        product.setId_roles(resultSet.getInt("id_roles"));
 
         return product;
     }
@@ -34,7 +29,7 @@ public class P_R_Impl implements Repository<Product>{
     public List<Product> list() {
         List<Product> productList = new ArrayList<>();
         try (Statement statement = getConnection().createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM new_table")) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM practicas")) {
             while (resultSet.next()) {
                 Product product = createProduct(resultSet);
                 productList.add(product);
@@ -46,11 +41,11 @@ public class P_R_Impl implements Repository<Product>{
     }
 
     @Override
-    public Product byId(Long id) {
+    public Product byId(Integer id_practicas) {
         Product product = null;
         try (PreparedStatement preparedStatement = getConnection()
-                .prepareStatement("SELECT * FROM new_table WHERE id = ?")) {
-            preparedStatement.setLong(1, id);
+                .prepareStatement("SELECT * FROM practicas WHERE id_practicas = ?")) {
+            preparedStatement.setLong(1, id_practicas);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 product = createProduct(resultSet);

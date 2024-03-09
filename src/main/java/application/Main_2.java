@@ -13,8 +13,8 @@ public class Main_2 {
             Repository<Product> repository = new P_R_Impl();
             System.out.println("*** List products from database");
             repository.list().forEach(System.out::println);
-            System.out.println("*** Get by Id: 3");
-            System.out.println(repository.byId(2L).toString());
+            System.out.println("*** Get by Id: 1");
+            System.out.println(repository.byId(1).toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
